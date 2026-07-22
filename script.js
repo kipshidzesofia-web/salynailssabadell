@@ -1,246 +1,98 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SalyNails Beauty</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-</head>
-<body>
+console.log("Bienvenido a SalyNails");
+// Boton reservar
+const boton = document.getElementById("reservarBtn");
 
-    <header>
-        <nav>
-            <a href="#inicio" class="logo">
-                <img src="images/0.jpg" alt="SalyNails logo">
-            </a>
-            <div class="menu-toggle" id="menu-toggle">&#9776</div>
-            <ul class="menu">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#galeria">Galería</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
+// modal
+const modal = document.getElementById("modal");
+const closeModal = document.getElementById("closeModal");
+const form = document.querySelector(".booking-form")
+// Abrir modal
+boton.addEventListener("click" , function(e){
+    e.preventDefault();
+    modal.style.display = "flex"
+});
 
-        <section class="hero" id="inicio">
-            <h1>SalyNails Beauty</h1> 
-            <p>Elegancia, belleza y cuidado profesional para tus uñas</p>
-            <a href="#reservas" class="btn" id="reservarBtn">Reservar Cita</a>
-        </section>
-    </header>
+// Cerrar modal ()
 
-    <!-- Sección de Servicios (Corregido a minúscula 'servicios') -->
-    <section id="servicios" class="services">
-        <h2>Nuestros Servicios</h2>
-        <div class="cards">
-            <div class="card">
-                <h3>Manicura</h3>
-                <p>Manicura profesional con diseños modernos.</p>
-            </div>
-            <div class="card">
-                <h3>Pedicura</h3>
-                <p>Pedicura completa para el cuidado de tus pies.</p>
-            </div>
-            <div class="card">
-                <h3>Uñas de Gel</h3>
-                <p>Extensiones y diseños personalizados.</p>
-            </div>
-        </div>
-    </section>
+closeModal.addEventListener("click",function(){
+    modal.style.display = "none"
+});
+// Cerrar haciendo click fuera 
+window.addEventListener("click",function(e){
+    if(e.target === modal){
+        modal.style.display = "none"
+    }
+});
 
-    <!-- Sección de Galería -->
-    <section id="galeria" class="gallery">
-        <h2>Galería</h2>
-        <div class="gallery-container">
-            <div class="gallery-item">
-                <img src="images/foto1.jpg" alt="Diseño de uñas elegante">
-            </div>
-            <div class="gallery-item">
-                <img src="images/foto2.jpg" alt="Manicura clásica">
-            </div>
-            <div class="gallery-item">
-                <img src="images/foto3.jpg" alt="Uñas de gel decoradas">
-            </div>
-            <div class="gallery-item">
-                <img src="images/foto4.jpg" alt="Pedicura profesional">
-            </div>
-            <div class="gallery-item">
-                <img src="images/foto5.jpg" alt="Nail art minimalista">
-            </div>
-            <div class="gallery-item">
-                <!-- Corregido el alt text para que coincida con la lógica de la imagen -->
-                <img src="images/foto7.jpg" alt="Diseño de uñas de temporada">
-            </div>
-        </div>
-    </section>
+// Enviar formulario 
+form.addEventListener("submit", function(e){
+    e.preventDefault();
 
-    <section class="carousel">
-        <img src="images/foto1.jpg" alt="Galeria" id="slider">
-    </section>
+    alert("✅ ¡Tu reserva fue enviada correctamente!");
 
-    <section id="sobre-mi" class="about">
-        <div class="about-image">
-        <img src="images/hero.jpg" alt="SalyNails">
-</div>
+    modal.style.display = "none";
 
-<div class="about-text">
-    <h2>Sobre Mi</h2>
+     form.reset();
+});
 
-    <p>
-        Hola! Soy Saly, especialista en manicura y diseño de uñas.
-        Mi pasion es cuidar cada detalle para que cada clienta se sienta
-        hermosa, segura y especial.
+const menuToggle = document.getElementById("menu-toggle");
+const menu = document.querySelector(".menu");
+menuToggle.addEventListener("click",function(){
+    menu.classList.toggle("active");
+});
+const links = document.querySelectorAll(".menu a");
 
-        Trabajo con productos de alta calidad y sigo las últimas tendencias para ofrecer un servicio profesional y personalizado.
-    </p>
+links.forEach(function(link){
+    link.addEventListener("click",function(){
+        menu.classList.remove("active");
+        menuToggle.innerHTML = "&#9776";
+    });
+});
+const questions = document.querySelectorAll(".faq-question");
+questions.forEach(function(question){
+          
+    question.addEventListener("click",function(){
+        const answer = this.nextElementSibling;
 
-    
-</div>
-    </section>
+        answer.classList.toggle("active")
+    });
+});
+ const images = [
+   "images/foto1.jpg",
+   "images/foto2.jpg",
+   "images/foto3.jpg",
+   "images/foto4.jpg",
+   "images/foto5.jpg"
+ ];
 
-    
-    
-    <section id="opiniones" class="reviews">
-        <h2>Optiones de Clientes</h2>
-        <div class="reviews-container">
-            <div class="review">
-                <h3>⭐⭐⭐⭐⭐</h3>
-                <h4>Maria</h4>
-                <p>"Me encanto el resultado. Muy profesional y amable."</p>
+ let index = 0;
 
-            </div>
+ const slider = document.getElementById("slider");setInterval(function(){
+    index++;
 
-            <div class="review">
-                <h3>⭐⭐⭐⭐⭐</h3>
-                <h4>Laura</h4>
-                <p">"El mejor salón de uñas .Volveré sin duda"</p>
+    if(index >= images.length){
+        index = 0;
 
+    }
+    slider.src = images[index];
+ }, 3000);
+ const topBtn = document.getElementById("topBtn");
 
-            </div>
-            <div class="review">
-                <h3>⭐⭐⭐⭐⭐</h3>
-                <h4>Sofia</h4>
-                <p>"Excelente atención y diseños preciosos."</p>
-            </div>
-        </div>
+ // Show button when user scrolls down 300px
+ window.onscroll = function() {
+   if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+     topBtn.style.display = "block";
+   } else {
+     topBtn.style.display = "none";
+   }
+ };
+ 
+ // Scroll smoothly to top on click
+ topBtn.addEventListener("click", () => {
+   window.scrollTo({
+     top: 0,
+     behavior: "smooth"
+   });
+ });
 
-    </section>
-
-    <section class="faq">
-        <h2>Preguntas Frecuentas</h2>
-
-        <div class="faq-item">
-            
-            <button class="faq-question">¿Cuanto dura una manicura?</button>
-
-            <div class="faq-answer">
-                <p>una manicura dura aproximamente 60 minutos.</p>
-            </div>
-
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question">¿Trabajas con cita previa?</button>
-
-            <div class="faq-answer">
-                <p>Sí, recomendamos reservar tu cita con antelación.</p>
-            </div>
-        </div> 
-        
-        <div class="faq-item">
-            <button class="faq-question">¿Que métodos de pago aceptas?</button>
-
-            <div class="faq-answer">
-                <p>Aceptamos efectivo y tarjeta bancaria.</p>
-            </div>
-        </div>
-
-</section>
-
- <div id="modal" class="modal">
-    <div class="modal-content">
-
-        <span id="closeModal" class="close">&times;
-
-        </span>
-        <h2>Reserva tu Cita</h2>
-
-        <form class="booking-form">
-            <input type="text" placeholder="Nombre" required>
-            <input type="tel" placeholder="Telefono" required>
-            <input type="email" placeholder="Correo electronico" required>
-            
-            <select required>
-                <option value="">Selecciona un servicio</option>
-                <option >Manicura</option>
-                <option >Pedicura</option>
-                <option >Uñas de Gel</option>
-                <option >Nail Art</option>
-            </select>
-
-            <input type="date" required>
-            <input type="time" required>
-
-            <textarea placeholder="Escribe un mensaje..."></textarea>
-
-            <button type="submit" class="btn">Confirmar Reserva</button>
-
-        </form>
-
-    </div>
-
-   </div>
-   <section class="map">
-    <h2>¿Donde Estamos?</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2985.6311672479737!2d2.0953096760681658!3d41.55558257127907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4950076eb67eb%3A0x2331cbc9238fb29c!2sSaly%20Nails!5e0!3m2!1sru!2ses!4v1784642425202!5m2!1sru!2ses" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    <div class="map-buttons">
-
-           <a href="https://www.google.com/maps/search/?api=1&query=Saly+Nails+Av.+de+Francesc+Macià+62+Sabadell"
-   target="_blank"
-   class="btn">
-    <i class="bi bi-geo-alt-fill"></i>
-    Cómo llegar
-</a>
-        </div>
-   </section>
-
-  
-
-    <!-- NUEVA: Sección de Contacto / Footer -->
-    <footer id="contacto" class="contact">
-       
-        <h2>Contacto</h2>
-        <div class="contact-info">
-            <p><i class="bi bi-geo-alt-fill"></i>Saly Nails Av. de Francesc Macià, 08208 Sabadell, Barcelona</p>
-            <p><i class="bi bi-telephone-fill"></i> +34 612 423 197</p>
-            <p><i class="bi bi-envelope-fill"></i> salynailssabadell@gmail.com</p>
-        </div>
-
-       <div class="social">
-   <a href="https://www.instagram.com/saly_nailsss/"
-   target="_blank"
-   rel="noopener noreferrer">
-    <i class="bi bi-instagram"></i>
-</a>
-
-<a href="https://www.facebook.com/profile.php?id=100027986973909" target="_blank">
-    <i class="bi bi-facebook"></i>
-</a>
-
-<a href="https://wa.me/34612423197" target="_blank">
-    <i class="bi bi-whatsapp"></i>
-</a>
-</div>
-
-        
-        <p class="copyright">&copy; 2026 SalyNails Beauty. Todos los derechos reservados.</p>
-    </footer>
-
-    <button id="topBtn"><i class="bi bi-arrow-up"></i></button>
-    
-    <script src="script.js">
-        
-    </script>
-</body>
-</html>
+ 
